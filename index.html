@@ -2,30 +2,67 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <title>hehe</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600&display=swap" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
+    
+    <style>
+        /* CSS cho lớp phủ bấm để phát nhạc */
+        #click-anywhere {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 999999; /* Luôn nằm trên cùng */
+            background: transparent; /* Trong suốt để vẫn nhìn thấy web */
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end; /* Chữ nằm ở dưới đáy */
+            padding-bottom: 50px;
+        }
+        
+        /* Dòng chữ nhắc nhở nhấp nháy */
+        .guide-text {
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            background: rgba(0, 0, 0, 0.5); /* Nền đen mờ cho dễ đọc */
+            padding: 10px 20px;
+            border-radius: 20px;
+            animation: pulse 1.5s infinite;
+            pointer-events: none; /* Cho phép bấm xuyên qua chữ */
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.5; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0.5; transform: scale(0.9); }
+        }
+    </style>
   </head>
 
   <body>
-    <!-- <audio autoplay="autopaly">
-      <source src="renxi.mp3" type="audio/mp3" />
-    </audio> -->
-    <!-- 星空html -->
-    <!-- <div> -->
+    <div id="click-anywhere">
+        <div class="guide-text">👆 Chạm nhẹ vào màn hình để nghe nhạc nhé! 👆</div>
+    </div>
+
+    <audio id="player" loop>
+      <source src="Download.mp3" type="audio/mp3" />
+    </audio> 
+    
     <div class="container2">
       <div class="content">
         <canvas id="universe"></canvas>
       </div>
     </div>
-    <!-- </div> -->
+    
     <div class="title">
-      <!-- EDIT HERE -->
-      <h3 class="STARDUST1">2025</h3>
-      <h1 class="STARDUST2">ME &amp; PA</h1>
-      <h3 class="STARDUST3">L O V E <strong>❤</strong> Y O U</h3>
-      <img class="img" src="https://cellphones.com.vn/sforum/wp-content/uploads/2024/02/avatar-anh-meo-cute-3.jpg" alt="JUNO_OKYO" />
+      <h3 class="STARDUST1">heyy bae</h3>
+      <h1 class="STARDUST2">Have a good night</h1>
+      <h3 class="STARDUST3">Xinhhh gái quáaaaa awwww</h3>
+      <img class="img" src="https://cdn-media.sforum.vn/storage/app/media/wp-content/uploads/2024/02/avatar-anh-meo-cute-thumbnail.jpg" alt="Avatar" />
       <canvas id="pinkboard"></canvas>
     </div>
 
@@ -33,9 +70,25 @@
     <script src="js/main.js"></script>
     <script src="js/particle.js"></script>
     <script src="js/universe.js"></script>
+
+    <script>
+        // Bắt sự kiện click lên toàn bộ màn hình
+        document.addEventListener('click', function() {
+            var audio = document.getElementById('player');
+            var guide = document.getElementById('click-anywhere');
+
+            // Nếu nhạc đang tắt thì bật lên
+            if (audio.paused) {
+                audio.play().then(() => {
+                    console.log("Đã phát nhạc!");
+                    // Ẩn dòng chữ hướng dẫn đi sau khi đã bấm
+                    guide.style.display = "none";
+                }).catch((err) => {
+                    console.error("Lỗi: " + err);
+                    alert("Không tìm thấy file nhạc! Hãy kiểm tra tên file 'Download.mp3' xem có viết hoa/thường đúng chưa.");
+                });
+            }
+        });
+    </script>
   </body>
-
 </html>
-
-
-
